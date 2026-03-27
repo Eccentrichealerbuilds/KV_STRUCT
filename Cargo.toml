@@ -1,7 +1,10 @@
 [package]
-name = "kv_struct"
+name = "kvstruct"
 version = "1.0.0"
 edition = "2024"
 authors = ["Eccentric Healer, healer@eccentrichealer.com"]
+description = "a macro that generates auto json serialization for any struct instance with field name as key."
+license = "MIT or Apache-2.0"
+repository = "https://github.com/Eccentrichealerbuilds/KV_STRUCT"
 
 [dependencies]
