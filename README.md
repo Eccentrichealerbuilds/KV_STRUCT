@@ -1,8 +1,8 @@
-# kv_struct
+# kvstruct
 
 A minimalistic, zero-dependency Rust library for generating JSON-like representations of your structs.
 
-Instead of relying on heavy procedural macros or external dependencies like `serde`, `kv_struct` provides a simple declarative macro (`json!`) that wraps your struct definition and automatically implements a `to_json()` method for it.
+Instead of relying on heavy procedural macros or external dependencies like `serde`, `kvstruct` provides a simple declarative macro (`json!`) that wraps your struct definition and automatically implements a `to_json()` method for it.
 
 ## Features
 
@@ -13,14 +13,14 @@ Instead of relying on heavy procedural macros or external dependencies like `ser
 
 ## Installation
 
-cargo add kv_struct@1.0.0
+cargo add kvstruct@1.0.0
 
 ## Usage
 
 Use the `json!` macro to define your struct, which will automatically implement the `Jsonfy` trait.
 
 ```rust
-use kv_struct::{json, Jsonfy};
+use kvstruct::{json, Jsonfy};
 
 json! {
     #[derive(Debug)]
