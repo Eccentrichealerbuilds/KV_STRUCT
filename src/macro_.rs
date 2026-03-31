@@ -28,7 +28,22 @@ macro_rules! json {
                     if !first { result.push_str(",\n");}
                     let field_name = stringify!($field_name).to_string();
                     let field_data = &self.$field_name;
-                    let json = format!("  \"{}\" : {:?}", field_name, field_data);
+                    let debug_value = format!("{:?}", field_data);
+
+                    // All values are enclosed in quotes for the final output.
+                    // Backslashes are stripped to prevent double-escaping of inner quotes
+                    // in compound types (like vectors or nested structs).
+                    // E.g., Vec debug: ["A", "B"] becomes `"["A", "B"]"` without backslashes.
+                    let clean_value = debug_value.replace('\\', "");
+
+                    let mut json_value = String::new();
+                    if clean_value.starts_with('"') && clean_value.ends_with('"') && clean_value.len() >= 2 {
+                        json_value.push_str(&clean_value);
+                    } else {
+                        json_value = format!("\"{}\"", clean_value);
+                    }
+
+                    let json = format!("  \"{}\" : {}", field_name, json_value);
                     let json = format!("{:#}", json);
                     let mut first_switch = || first = false;
                     first_switch();
