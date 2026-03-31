@@ -13,7 +13,7 @@ Instead of relying on heavy procedural macros or external dependencies like `ser
 
 ## Installation
 
-cargo add kvstruct@1.0.0
+cargo add kvstruct@1.0.1
 
 ## Usage
 
@@ -27,15 +27,15 @@ json! {
     pub struct User {
         pub name: String,
         pub age: u32,
-        pub is_active: bool,
+        pub friends: Vec<String>,
     }
 }
 
 fn main() {
     let user = User {
-        name: String::from("Alice"),
-        age: 30,
-        is_active: true,
+        name: String::from("Healer"),
+        age: 20,
+        friends: vec![String::from("Mskillder", String::from("Patrick"))] ,
     };
 
     // Serialize the struct to a formatted JSON string
@@ -47,7 +47,9 @@ fn main() {
 ### Important Note on Serialization
 
 Behind the scenes, the `json!` macro uses the `std::fmt::Debug` (`{:?}`) representation to serialize the values of your struct fields. 
-Therefore, **all field types must implement `Debug`**. While this works perfectly for strings, numbers, booleans, and many standard types to generate JSON-like output, please be aware that complex nested structures or custom `Debug` implementations might not produce strict, RFC-compliant JSON. This library is best meant for simple, fast serialization or debugging purposes.
+Therefore, **all field types must implement `Debug`**. Note that output fields are wrapped in double quotes. For compound types like vectors or tuples, backslashes are removed resulting in visually clean output, avoiding `"[\"A\"]"` in favor of `"["A"]"`. 
+
+While this works nicely for simple structures and debugging purposes, please be aware this output is a custom JSON-like format and complex nested structures might not produce strict, RFC-compliant JSON.
 
 ## License
 
